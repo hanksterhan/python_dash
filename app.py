@@ -12,7 +12,13 @@ df = pd.read_csv(
     'a9f9e8076b837d541398e999dcbac2b2826a81f8/'+
     'gdp-life-exp-2007.csv')
 
+markdown_text = '''
+### Dash and Markdown
+A lot of text
+'''
+
 app.layout = html.Div([
+    # Scatterplot
     dcc.Graph(
         id='life-exp-vs-gdp',
         figure={
@@ -38,8 +44,58 @@ app.layout = html.Div([
                 hovermode='closest'
             )
         }
-    )
+    ),
+    # Markdown text
+    dcc.Markdown(children=markdown_text),
+
+    # Dropdown selector
+    dcc.Dropdown(
+        options=[
+            {'label': 'New York City', 'value': 'NYC'},
+            {'label': 'Montreal', 'value': 'MTL'},
+            {'label': 'San Francisco', 'value': 'SF'}
+        ],
+        value='MTL'
+    ),
+
+    # Multiple Dropdown selector
+    html.Label('Multi-Select Dropdown'),
+        dcc.Dropdown(
+            options=[
+                {'label': 'New York City', 'value': 'NYC'},
+                {'label': 'Montreal', 'value': 'MTL'},
+                {'label': 'San Francisco', 'value': 'SF'}
+            ],
+            value=['MTL', 'SF'],
+            multi=True
+        ),
+
+    # Checkbox selector
+    html.Label('Checkboxes'),
+        dcc.Checklist(
+            options=[
+                {'label': 'New York City', 'value': 'NYC'},
+                {'label': 'Montreal', 'value': 'MTL'},
+                {'label': 'San Francisco', 'value': 'SF'}
+            ],
+            values=['MTL', 'SF']
+        ),
+
+    # Radio buttons
+    html.Label('Radio Items'),
+        dcc.RadioItems(
+            options=[
+                {'label': 'New York City', 'value': 'NYC'},
+                {'label': 'Montreal', 'value': 'MTL'},
+                {'label': 'San Francisco', 'value': 'SF'}
+            ],
+            value='MTL'
+        ),
+
+    # Text input
+    html.Label('Text Box'),
+        dcc.Input(value='MTL', type='text')
 ])
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
