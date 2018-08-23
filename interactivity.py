@@ -1,6 +1,9 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import pandas as pd
+pd.core.common.is_list_like = pd.api.types.is_list_like # to make pandas_datareader cooperate
+from pandas_datareader import data as web
 from dash.dependencies import Input, Output
 
 app = dash.Dash()
